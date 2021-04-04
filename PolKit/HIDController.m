@@ -72,8 +72,10 @@ static void _ServiceMatchingCallback(void* refcon, io_iterator_t iterator)
 + (void) initialize
 {
 	if(_usageTables == nil)
-	_usageTables = [[NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UsageTables" ofType:@"plist"]] mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL] retain];
-	
+	_usageTables = [[NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"UsageTables" ofType:@"plist"]]
+                                                              options:NSPropertyListImmutable
+                                                               format:NULL
+                                                                error:NULL] retain];
 	if(_instanceList == NULL)
 	_instanceList = CFSetCreateMutable(kCFAllocatorDefault, 0, NULL);
 }
@@ -261,13 +263,6 @@ static void _TimerCallBack(CFRunLoopTimerRef timer, void* info)
 			_hidRunLoop = NULL;
 		}
 	}
-}
-
-- (void) finalize
-{
-	[self _cleanUp_HIDController];
-	
-	[super finalize];
 }
 
 - (void) dealloc

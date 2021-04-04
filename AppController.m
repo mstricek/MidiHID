@@ -47,7 +47,7 @@
 
 - (void) _loadConfigurationsFromDirectory:(NSString*)path
 {
-	NSArray*					array = [[NSFileManager defaultManager] directoryContentsAtPath:path];
+    NSArray*					array = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:path error:NULL];
 	NSString*					file;
 	unsigned					i;
 	BridgeController*			controller;

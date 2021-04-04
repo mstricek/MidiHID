@@ -164,7 +164,10 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 	unsigned						i;
 	
 	//Read the plist file
-	array = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:path] mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+	array = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:path]
+                   options:NSPropertyListImmutable
+                    format:NULL
+                     error:NULL];
 	if(![array isKindOfClass:[NSArray class]])
 	return nil;
 	
@@ -397,7 +400,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 - (BOOL) validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)anItem
 {
 	if([anItem action] == @selector(paste:))
-	return ([self isEditable] && [self preferredPasteboardTypeFromArray:[[NSPasteboard generalPasteboard] types] restrictedToTypesFromArray:[NSArray arrayWithObject:NSStringPboardType]]);
+        return ([self isEditable] && [self preferredPasteboardTypeFromArray:[[NSPasteboard generalPasteboard] types] restrictedToTypesFromArray:[NSArray arrayWithObject:NSPasteboardTypeString]]);
 	
 	return [super validateUserInterfaceItem:anItem];
 }

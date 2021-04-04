@@ -271,7 +271,7 @@ static int _log(lua_State* state)
 	id						result;
 	
 	if((result = [NSData dataWithContentsOfFile:path]))
-	result = [NSPropertyListSerialization propertyListFromData:result mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+	result = [NSPropertyListSerialization propertyListWithData:result options:NSPropertyListImmutable format:NULL error:NULL];
 	if(result == nil) {
 		[self release];
 		return nil;
@@ -333,7 +333,7 @@ static int _log(lua_State* state)
 	
 	result = [self saveConfiguration];
 	if(result)
-	result = [NSPropertyListSerialization dataFromPropertyList:result format:NSPropertyListXMLFormat_v1_0 errorDescription:NULL];
+        result = [NSPropertyListSerialization dataWithPropertyList:result format:NSPropertyListXMLFormat_v1_0 options:0 error:NULL];
 	
 	return [result writeToFile:path atomically:YES];
 }

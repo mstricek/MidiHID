@@ -91,13 +91,6 @@ static CFMutableSetRef				_instanceList;
 	}
 }
 
-- (void) finalize
-{
-	[self _cleanUp_MidiController];
-	
-	[super finalize];
-}
-
 - (void) dealloc
 {
 	[self _cleanUp_MidiController];

@@ -67,6 +67,10 @@
 
 /* Begin PBXFileReference section */
 		8D1107320486CEB800E47090 /* MidiHID.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MidiHID.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF3599892619BB300098F08D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = en; path = en.lproj/Configuration.plist; sourceTree = "<group>"; };
+		DF35998A2619BB300098F08D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		DF35998C2619BB300098F08D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/ReleaseNotes.rtf; sourceTree = "<group>"; };
+		DF35998D2619BB360098F08D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		E20A2D4F0F8C605E0004D8B8 /* Warning.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Warning.tiff; sourceTree = "<group>"; };
 		E24D3E750F86CC940048853A /* Success.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Success.tiff; sourceTree = "<group>"; };
 		E25705CF0E4FA8B9007592EC /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
@@ -129,12 +133,9 @@
 		E28AE9EC0E91B73000379541 /* SourceTextView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SourceTextView.m; sourceTree = "<group>"; };
 		E28AE9F80E91B7C000379541 /* SourceTextViewKeywords-Lua.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "SourceTextViewKeywords-Lua.plist"; sourceTree = "<group>"; };
 		E28AEAF50E91CA9D00379541 /* Error.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Error.tiff; sourceTree = "<group>"; };
-		E29E97480F816111003AACB9 /* English */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = English; path = English.lproj/ReleaseNotes.rtf; sourceTree = "<group>"; };
 		E2B8B4E30E671D7900E1C9D1 /* Dot-Green.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Dot-Green.tiff"; sourceTree = "<group>"; };
 		E2B8B4E40E671D7900E1C9D1 /* Dot-Orange.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Dot-Orange.tiff"; sourceTree = "<group>"; };
 		E2B8B4E50E671D7900E1C9D1 /* Dot-Red.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = "Dot-Red.tiff"; sourceTree = "<group>"; };
-		E2B8B5290E671FBF00E1C9D1 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		E2B8B52B0E671FBF00E1C9D1 /* English */ = {isa = PBXFileReference; fileEncoding = 10; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E2BC61C70EFDEF7E00AC2207 /* Apple Remote.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Apple Remote.xml"; sourceTree = "<group>"; };
 		E2BC61C90EFDEF7E00AC2207 /* Apple Keyboard.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Apple Keyboard.xml"; sourceTree = "<group>"; };
 		E2BC61CD0EFDEF7E00AC2207 /* Apple Mouse.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Apple Mouse.xml"; sourceTree = "<group>"; };
@@ -147,7 +148,6 @@
 		E2BFF83E0E8DBC0200086361 /* MidiController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MidiController.m; sourceTree = "<group>"; };
 		E2BFF8580E8DBC4500086361 /* MiniUDPSocket.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MiniUDPSocket.h; sourceTree = "<group>"; };
 		E2BFF8590E8DBC4500086361 /* MiniUDPSocket.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MiniUDPSocket.m; sourceTree = "<group>"; };
-		E2CE576F0F8BCCCC00081BB0 /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = English; path = English.lproj/Configuration.plist; sourceTree = "<group>"; };
 		E2CF872B10A05CCA00AAC44E /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = System/Library/Frameworks/Cocoa.framework; sourceTree = SDKROOT; };
 		E2CF883410A05D2F00AAC44E /* AppController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppController.h; sourceTree = "<group>"; };
 		E2CF883510A05D2F00AAC44E /* BridgeController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BridgeController.h; sourceTree = "<group>"; };
@@ -358,16 +358,18 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastUpgradeCheck = 1240;
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "MidiHID" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				English,
-				Japanese,
-				French,
-				German,
+				ja,
+				en,
+				de,
+				Base,
+				fr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MidiHID */;
 			projectDirPath = "";
@@ -455,7 +457,7 @@
 		E29E97470F816111003AACB9 /* ReleaseNotes.rtf */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E29E97480F816111003AACB9 /* English */,
+				DF35998C2619BB300098F08D /* en */,
 			);
 			name = ReleaseNotes.rtf;
 			sourceTree = "<group>";
@@ -463,7 +465,7 @@
 		E2B8B5280E671FBF00E1C9D1 /* MainMenu.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E2B8B5290E671FBF00E1C9D1 /* English */,
+				DF35998D2619BB360098F08D /* Base */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -471,7 +473,7 @@
 		E2B8B52A0E671FBF00E1C9D1 /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E2B8B52B0E671FBF00E1C9D1 /* English */,
+				DF35998A2619BB300098F08D /* en */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -479,7 +481,7 @@
 		E2CE576E0F8BCCCC00081BB0 /* Configuration.plist */ = {
 			isa = PBXVariantGroup;
 			children = (
-				E2CE576F0F8BCCCC00081BB0 /* English */,
+				DF3599892619BB300098F08D /* en */,
 			);
 			name = Configuration.plist;
 			sourceTree = "<group>";
@@ -490,10 +492,13 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 1.0b6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pol-online.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MidiHID;
 			};
 			name = Debug;
@@ -501,10 +506,13 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CODE_SIGN_IDENTITY = "-";
 				CURRENT_PROJECT_VERSION = 1.0b6;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
+				PRODUCT_BUNDLE_IDENTIFIER = "net.pol-online.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MidiHID;
 			};
 			name = Release;
@@ -513,11 +521,38 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_PREPROCESSOR_DEFINITIONS_NOT_USED_IN_PRECOMPS = __DEBUG__;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wall";
@@ -528,9 +563,35 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c99;
-				MACOSX_DEPLOYMENT_TARGET = 10.5;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 11.0;
 				SDKROOT = macosx;
 				WARNING_CFLAGS = "-Wall";
 			};

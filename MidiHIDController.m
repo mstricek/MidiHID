@@ -47,7 +47,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	NSSize					size = [image size];
 	
 	[image setFlipped:YES];
-	[image drawInRect:NSMakeRect(cellFrame.origin.x, cellFrame.origin.y + ceil((cellFrame.size.height - size.height) / 2.0), size.width, size.height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+    [image drawInRect:NSMakeRect(cellFrame.origin.x, cellFrame.origin.y + ceil((cellFrame.size.height - size.height) / 2.0), size.width, size.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
 	[image setFlipped:NO];
 	cellFrame.origin.x += cellFrame.size.height + kTextImageMargin;
 	
@@ -450,11 +450,11 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	NSMenuItem*				item;
 	
 	for(item in [actionMenu itemArray])
-	[item setState:NSOffState];
+        [item setState:NSControlStateValueOff];
 	if([self.selectedController isEnabled])
-	[[actionMenu itemAtIndex:(1 + [self.selectedController midiChannel])] setState:NSOnState];
+        [[actionMenu itemAtIndex:(1 + [self.selectedController midiChannel])] setState:NSControlStateValueOn];
 	else
-	[[actionMenu itemAtIndex:0] setState:NSOnState];
+        [[actionMenu itemAtIndex:0] setState:NSControlStateValueOn];
 	
 	[NSMenu popUpContextMenu:actionMenu withEvent:[NSApp currentEvent] forView:sender];
 }
@@ -595,7 +595,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	
 	[controllerOutlineView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 	[controllerOutlineView setDraggingSourceOperationMask:NSDragOperationNone forLocal:YES];
-	[controllerOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFilenamesPboardType]];
+	[controllerOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSPasteboardTypeFileURL]];
 	[controllerOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 	[controllerOutlineView setIndentationPerLevel:4];
 	cell = [TextImageCell new];

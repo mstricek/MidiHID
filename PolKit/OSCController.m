@@ -196,13 +196,6 @@
 	free(_cachedAddress);
 }
 
-- (void) finalize
-{
-	[self _cleanUp_OSCController];
-	
-	[super finalize];
-}
-
 - (void) dealloc
 {
 	[self _cleanUp_OSCController];
