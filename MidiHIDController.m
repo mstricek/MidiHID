@@ -625,7 +625,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	[logTextView setHorizontallyResizable:YES];
 	[logTextView setFont:[NSFont fontWithName:@"Monaco" size:9]];
 	[logTextView setTextColor:[NSColor darkGrayColor]];
-	[[logTextView layoutManager] setDelegate:[NSLayoutManager self]];
+	[[logTextView layoutManager] setDelegate:self];
 	
 	[mainWindow setContentBorderThickness:32 forEdge:NSMinYEdge];
 	[mainWindow setFrameFromString:[defaults objectForKey:kDefaultKey_WindowFrame]];
