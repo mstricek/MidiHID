@@ -136,12 +136,12 @@
 - (void) appendUTF8String:(const char*)string
 {
 	[_typeTags appendString:@"s"];
-	[_arguments _appendPaddedBytes:string length:(string ? strlen(string) + 1 : 0)];
+	[_arguments _appendPaddedBytes:string length:(string ? (unsigned)strlen(string) + 1 : 0)];
 }
 
 - (void) appendBlobData:(NSData*)data
 {
-	[self appendBlobBytes:[data bytes] length:[data length]];
+	[self appendBlobBytes:[data bytes] length:(unsigned)[data length]];
 }
 
 - (void) appendBlobBytes:(const void*)bytes length:(unsigned)length
@@ -160,9 +160,9 @@
 	const char*					string;
 	
 	string = [_address UTF8String];
-	[data _appendPaddedBytes:string length:(strlen(string) + 1)];
+	[data _appendPaddedBytes:string length:((unsigned)strlen(string) + 1)];
 	string = [_typeTags UTF8String];
-	[data _appendPaddedBytes:string length:(strlen(string) + 1)];
+	[data _appendPaddedBytes:string length:((unsigned)strlen(string) + 1)];
 	[data appendData:_arguments];
 	
 	return [data autorelease];

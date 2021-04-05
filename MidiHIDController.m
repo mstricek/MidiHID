@@ -46,9 +46,8 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	NSImage*				image = [self representedObject];
 	NSSize					size = [image size];
 	
-	[image setFlipped:YES];
-    [image drawInRect:NSMakeRect(cellFrame.origin.x, cellFrame.origin.y + ceil((cellFrame.size.height - size.height) / 2.0), size.width, size.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0];
-	[image setFlipped:NO];
+    [image drawInRect:NSMakeRect(cellFrame.origin.x, cellFrame.origin.y + ceil((cellFrame.size.height - size.height) / 2.0), size.width, size.height) fromRect:NSZeroRect operation:NSCompositingOperationSourceOver fraction:1.0 respectFlipped:YES hints:NULL];
+
 	cellFrame.origin.x += cellFrame.size.height + kTextImageMargin;
 	
 	[super drawInteriorWithFrame:cellFrame inView:controlView];
@@ -339,7 +338,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 		name = [NSString stringWithFormat:LOCALIZED_STRING(@"DEFAULT_NAME"), ++i];
 	} while(![self _isNameUnique:name]);
 	
-	configuration = [NSPropertyListSerialization propertyListFromData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:kConfigurationExtension]] mutabilityOption:NSPropertyListImmutable format:NULL errorDescription:NULL];
+	configuration = [NSPropertyListSerialization propertyListWithData:[NSData dataWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"Configuration" ofType:kConfigurationExtension]] options:NSPropertyListImmutable format:NULL error:NULL];
 	controller = [[DeviceController alloc] initWithConfiguration:configuration];
 	if(![NSApp isHidden])
 	[controller setActiveStatusDelay:kStatusDelay];
@@ -351,13 +350,13 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	[[self controllers] addObject:controller];
 	[[self controllers] sortUsingFunction:_SortFunction context:NULL];
 	[controllerOutlineView reloadData];
-	[controllerOutlineView selectRow:[controllerOutlineView rowForItem:controller] byExtendingSelection:NO];
+	[controllerOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:[controllerOutlineView rowForItem:controller]] byExtendingSelection:NO];
 	
 	[controller addObserver:self forKeyPath:@"name" options:0 context:[self class]];
 	[controller addObserver:self forKeyPath:@"status" options:0 context:[self class]];
 	[controller release];
 	
-	[self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
+//	[self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
 	
 	if(![[NSUserDefaults standardUserDefaults] boolForKey:kDefaultKey_ExpandedWindow])
 	[self toggleExpand:self];
@@ -365,10 +364,13 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 
 - (IBAction) deleteConfiguration:(id)sender
 {
-	NSAlert*						alert;
-	
-	alert = [NSAlert alertWithMessageText:LOCALIZED_STRING(@"DELETE_TITLE") defaultButton:LOCALIZED_STRING(@"DELETE_DEFAULT_BUTTON") alternateButton:LOCALIZED_STRING(@"DELETE_ALTERNATE_BUTTON") otherButton:nil informativeTextWithFormat:LOCALIZED_STRING(@"DELETE_MESSAGE")];
-	if([alert runModal] == NSAlertAlternateReturn) {
+	NSAlert*						alert = [[NSAlert alloc] init];
+    [alert setMessageText:LOCALIZED_STRING(@"DELETE_TITLE")];
+    [alert setInformativeText:LOCALIZED_STRING(@"DELETE_MESSAGE")];
+    [alert addButtonWithTitle:LOCALIZED_STRING(@"DELETE_DEFAULT_BUTTON")];
+    [alert addButtonWithTitle:LOCALIZED_STRING(@"DELETE_ALTERNATE_BUTTON")];
+    
+	if([alert runModal] == NSAlertSecondButtonReturn) {
 		if([self.selectedController fileName] && ![[NSFileManager defaultManager] removeItemAtPath:[[[self class] configurationDirectory] stringByAppendingPathComponent:[self.selectedController fileName]] error:NULL]) {
 			NSLog(@"Failed deleting configuration file \"%@\"", [[[self class] configurationDirectory] stringByAppendingPathComponent:[self.selectedController fileName]]);
 			return;
@@ -379,7 +381,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 		[[self controllers] removeObject:self.selectedController];
 		[controllerOutlineView reloadData];
 		
-		[self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
+	//	[self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
 	}
 }
 
@@ -406,13 +408,13 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	[[self controllers] addObject:controller];
 	[[self controllers] sortUsingFunction:_SortFunction context:NULL];
 	[controllerOutlineView reloadData];
-	[controllerOutlineView selectRow:[controllerOutlineView rowForItem:controller] byExtendingSelection:NO];
+	[controllerOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:[controllerOutlineView rowForItem:controller]] byExtendingSelection:NO];
 	
 	[controller addObserver:self forKeyPath:@"name" options:0 context:[self class]];
 	[controller addObserver:self forKeyPath:@"status" options:0 context:[self class]];
 	[controller release];
 	
-	[self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
+	// [self outlineViewSelectionDidChange:nil]; //HACK: Force KVO to refresh
 }
 
 - (void) _saveController:(DeviceController*)controller
@@ -524,7 +526,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 		if([keyPath isEqualToString:@"name"]) {
 			[[self controllers] sortUsingFunction:_SortFunction context:NULL];
 			[controllerOutlineView reloadData];
-			[controllerOutlineView selectRow:[controllerOutlineView rowForItem:object] byExtendingSelection:NO];
+			[controllerOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:[controllerOutlineView rowForItem:object]] byExtendingSelection:NO];
 		}
 		else if([keyPath isEqualToString:@"status"])
 		[controllerOutlineView setNeedsDisplayInRect:[controllerOutlineView rectOfRow:[controllerOutlineView rowForItem:object]]];
@@ -535,7 +537,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 			[logTextView setString:@""];
 		}
 		else if([keyPath isEqualToString:@"selectedController.lastSourceError"])
-		[sourceView setErrorLine:[[self.selectedController lastSourceError] code]];
+		[sourceView setErrorLine:(unsigned)[[self.selectedController lastSourceError] code]];
 	}
 	else
 	[super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
@@ -595,7 +597,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	
 	[controllerOutlineView setDraggingSourceOperationMask:NSDragOperationCopy forLocal:NO];
 	[controllerOutlineView setDraggingSourceOperationMask:NSDragOperationNone forLocal:YES];
-	[controllerOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSPasteboardTypeFileURL]];
+	[controllerOutlineView registerForDraggedTypes:[NSArray arrayWithObject:NSFileContentsPboardType]];
 	[controllerOutlineView setSelectionHighlightStyle:NSTableViewSelectionHighlightStyleSourceList];
 	[controllerOutlineView setIndentationPerLevel:4];
 	cell = [TextImageCell new];
@@ -610,8 +612,8 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	[controllerOutlineView expandItem:nil expandChildren:YES];
 	[controllerOutlineView reloadData];
 	if([[self controllers] count])
-	[controllerOutlineView selectRow:0 byExtendingSelection:NO];
-	[self outlineViewSelectionDidChange:nil];
+	[controllerOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:0] byExtendingSelection:NO];
+	// [self outlineViewSelectionDidChange:nil];
 	
 	[sourceView setLanguage:kSourceTextViewLanguage_Lua];
 	[keywords setObject:color forKey:@"_event"];
@@ -623,7 +625,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	[logTextView setHorizontallyResizable:YES];
 	[logTextView setFont:[NSFont fontWithName:@"Monaco" size:9]];
 	[logTextView setTextColor:[NSColor darkGrayColor]];
-	[[logTextView layoutManager] setDelegate:self];
+	[[logTextView layoutManager] setDelegate:[NSLayoutManager self]];
 	
 	[mainWindow setContentBorderThickness:32 forEdge:NSMinYEdge];
 	[mainWindow setFrameFromString:[defaults objectForKey:kDefaultKey_WindowFrame]];
@@ -637,7 +639,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 - (NSApplicationTerminateReply) applicationShouldTerminate:(NSApplication*)sender
 {
 	DeviceController*			controller;
-	NSAlert*					alert;
+    NSAlert*					alert;
 	
 	for(controller in [self controllers]) {
 		if([controller hasChanges])
@@ -645,17 +647,23 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 	}
 	
 	if(controller) {
-		alert = [NSAlert alertWithMessageText:LOCALIZED_STRING(@"CHANGES_TITLE") defaultButton:LOCALIZED_STRING(@"CHANGES_DEFAULT_BUTTON") alternateButton:LOCALIZED_STRING(@"CHANGES_ALTERNATE_BUTTON") otherButton:LOCALIZED_STRING(@"CHANGES_OTHER_BUTTON") informativeTextWithFormat:LOCALIZED_STRING(@"CHANGES_MESSAGE")];
+        alert = [[NSAlert alloc] init];
+        [alert setMessageText:LOCALIZED_STRING(@"CHANGES_TITLE")];
+        [alert setInformativeText:LOCALIZED_STRING(@"CHANGES_MESSAGE")];
+        [alert addButtonWithTitle:LOCALIZED_STRING(@"CHANGES_DEFAULT_BUTTON")];
+        [alert addButtonWithTitle:LOCALIZED_STRING(@"CHANGES_ALTERNATE_BUTTON")];
+        [alert addButtonWithTitle:LOCALIZED_STRING(@"CHANGES_OTHER_BUTTON")];
+        
 		switch([alert runModal]) {
 			
-			case NSAlertDefaultReturn:
+			case NSAlertFirstButtonReturn:
 			for(controller in [self controllers]) {
 				if([controller hasChanges])
 				[self _saveController:controller];
 			}
 			break;
 			
-			case NSAlertOtherReturn:
+			case NSAlertThirdButtonReturn:
 			return NSTerminateCancel;
 			break;
 			
@@ -774,7 +782,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 
 - (NSDragOperation) outlineView:(NSOutlineView*)outlineView validateDrop:(id<NSDraggingInfo>)info proposedItem:(id)item proposedChildIndex:(NSInteger)index
 {
-	NSArray*					filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
+	NSArray*					filenames = [[info draggingPasteboard] propertyListForType:NSPasteboardTypeFileURL];
 	NSString*					path;
 	
 	for(path in filenames) {
@@ -791,7 +799,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 
 - (BOOL) outlineView:(NSOutlineView*)outlineView acceptDrop:(id<NSDraggingInfo>)info item:(id)item childIndex:(NSInteger)index
 {
-	NSArray*					filenames = [[info draggingPasteboard] propertyListForType:NSFilenamesPboardType];
+	NSArray*					filenames = [[info draggingPasteboard] propertyListForType:NSPasteboardTypeFileURL];
 	NSString*					path;
 	NSString*					file;
 	DeviceController*			controller;
@@ -817,7 +825,7 @@ static NSComparisonResult _SortFunction(DeviceController* controller1, DeviceCon
 		[[self controllers] addObject:controller];
 		[[self controllers] sortUsingFunction:_SortFunction context:NULL];
 		[controllerOutlineView reloadData];
-		[controllerOutlineView selectRow:[controllerOutlineView rowForItem:controller] byExtendingSelection:NO];
+        [controllerOutlineView selectRowIndexes:[NSIndexSet indexSetWithIndex:[controllerOutlineView rowForItem:controller]] byExtendingSelection:NO];
 		
 		[controller addObserver:self forKeyPath:@"name" options:0 context:[self class]];
 		[controller addObserver:self forKeyPath:@"status" options:0 context:[self class]];

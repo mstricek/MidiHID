@@ -2166,14 +2166,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <clipView key="contentView" id="chO-v6-7b5">
                             <rect key="frame" x="0.0" y="0.0" width="500" height="321"/>
-                            <autoresizingMask key="autoresizingMask"/>
+                            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             <subviews>
                                 <textView editable="NO" importsGraphics="NO" verticallyResizable="YES" spellingCorrection="YES" id="988">
                                     <rect key="frame" x="0.0" y="0.0" width="498" height="321"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <color key="textColor" name="textColor" catalog="System" colorSpace="catalog"/>
                                     <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                    <size key="minSize" width="500" height="321"/>
+                                    <size key="minSize" width="498" height="321"/>
                                     <size key="maxSize" width="983" height="10000000"/>
                                     <attributedString key="textStorage">
                                         <fragment content="Lorem ipsum dolor sit er ">
@@ -2946,7 +2946,7 @@
                     <imageView fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="990">
                         <rect key="frame" x="186" y="352" width="128" height="128"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
-                        <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Xcode" id="991"/>
+                        <imageCell key="cell" controlSize="small" refusesFirstResponder="YES" alignment="left" imageScaling="proportionallyDown" image="Icon" id="991"/>
                     </imageView>
                     <box autoresizesSubviews="NO" verticalHuggingPriority="750" fixedFrame="YES" boxType="separator" translatesAutoresizingMaskIntoConstraints="NO" id="992">
                         <rect key="frame" x="0.0" y="319" width="500" height="5"/>
@@ -3066,11 +3066,11 @@
     </objects>
     <resources>
         <image name="Error" width="16" height="16"/>
+        <image name="Icon" width="512" height="512"/>
         <image name="NSActionTemplate" width="15" height="15"/>
         <image name="NSAddTemplate" width="14" height="13"/>
         <image name="NSRemoveTemplate" width="14" height="4"/>
         <image name="Success" width="16" height="16"/>
         <image name="Warning" width="16" height="16"/>
-        <image name="Xcode" width="128" height="128"/>
     </resources>
 </document>

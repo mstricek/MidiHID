@@ -57,12 +57,12 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 		
 		case kSourceToken_Code:
 		if([view keywordColors]) {
-			start2 = range.location;
-			end2 = range.location + range.length;
+			start2 = (unsigned)range.location;
+			end2 = (unsigned)range.location + (unsigned)range.length;
 			while(1) {
 				range = [source rangeOfCharacterFromSet:characters options:0 range:NSMakeRange(start2, end2 - start2)];
 				if(range.location != NSNotFound) {
-					start2 = range.location;
+					start2 = (unsigned)range.location;
 					if(start2 == end2)
 					break;
 				}
@@ -74,7 +74,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 					subRange = NSMakeRange(start2, range.location - start2);
 					if((color = [[view keywordColors] objectForKey:[source substringWithRange:subRange]]))
 					[view setTextColor:color range:subRange];
-					start2 = range.location;
+					start2 = (unsigned)range.location;
 					if(start2 == end2)
 					break;
 				}
@@ -349,7 +349,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 	[self setMaxSize:NSMakeSize(10000000, 10000000)];
 	[self setAutoresizingMask:NSViewNotSizable];
 	
-	[self setDelegate:self];
+	[self setDelegate:[NSTextView self]];
 	_language = kSourceTextViewLanguage_Undefined;
 	_showLines = YES;
 	_stringColor = [[NSColor colorWithDeviceRed:0.6 green:0.3 blue:0.0 alpha:1.0] retain];
@@ -358,7 +358,13 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 	_errorColor = [[NSColor colorWithDeviceRed:1.0 green:0.4 blue:0.5 alpha:1.0] retain];
 	[self setFont:[NSFont fontWithName:@"Monaco" size:10]];
 	[self setSmartInsertDeleteEnabled:NO];
-	
+    self.grammarCheckingEnabled = NO;
+    self.continuousSpellCheckingEnabled = NO; // we are not interested in red underlining of LUA function names
+    self.automaticDashSubstitutionEnabled = NO;
+    self.automaticTextReplacementEnabled = NO;
+    self.automaticQuoteSubstitutionEnabled = NO; // get rid of those programmers annoyances (cannot enclose string in normal quotes otherwise)
+    self.automaticSpellingCorrectionEnabled = NO;
+    
 	style = [NSMutableParagraphStyle new];
 	[style setTabStops:[NSArray array]];
 	for(i = 0; i < 128; ++i) {
@@ -401,6 +407,9 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 {
 	if([anItem action] == @selector(paste:))
         return ([self isEditable] && [self preferredPasteboardTypeFromArray:[[NSPasteboard generalPasteboard] types] restrictedToTypesFromArray:[NSArray arrayWithObject:NSPasteboardTypeString]]);
+
+    if(([anItem action] == @selector(shiftLeft:)) || ([anItem action] == @selector(shiftRight:)))
+    return ([[self window] firstResponder] == self);
 	
 	return [super validateUserInterfaceItem:anItem];
 }
@@ -477,7 +486,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 							subRange,
 							subRange2;
 	
-	[self insertText:@"\n"];
+	[self insertText:@"\n" replacementRange:[self selectedRange]];
 	
 	if((range.location != NSNotFound) && (range.location > 0)) {
 		subRange = [string rangeOfString:@"\n" options:NSBackwardsSearch range:NSMakeRange(0, range.location)];
@@ -490,14 +499,14 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 		if(subRange2.location == NSNotFound)
 		subRange2.location = range.location;
 		
-		[self insertText:[string substringWithRange:NSMakeRange(subRange.location, subRange2.location - subRange.location)]];
+		[self insertText:[string substringWithRange:NSMakeRange(subRange.location, subRange2.location - subRange.location)] replacementRange:[self selectedRange]];
 	}
 }
 
 - (void) _highlightLine:(unsigned)line withColor:(NSColor*)color
 {
 	NSString*				string = [self string];
-	unsigned				length = [string length],
+	unsigned				length = (unsigned)[string length],
 							count = 0,
 							location = 0;
 	NSRange					range;
@@ -514,7 +523,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 			[[self textStorage] removeAttribute:NSBackgroundColorAttributeName range:range];
 			break;
 		}
-		location = range.location + 1;
+		location = (unsigned)range.location + 1;
 		++count;
 	}
 }
@@ -591,7 +600,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 {
 	if(color != _stringColor) {
 		[_stringColor release];
-		_stringColor = [[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] retain];
+        _stringColor = [[color colorUsingType:NSColorTypeComponentBased] retain];
 		
 		[self textDidChange:nil];
 	}
@@ -606,7 +615,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 {
 	if(color != _commentColor) {
 		[_commentColor release];
-		_commentColor = [[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] retain];
+		_commentColor = [[color colorUsingType:NSColorTypeComponentBased] retain];
 		
 		[self textDidChange:nil];
 	}
@@ -621,7 +630,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 {
 	if(color != _preprocessorColor) {
 		[_preprocessorColor release];
-		_preprocessorColor = [[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] retain];
+		_preprocessorColor = [[color colorUsingType:NSColorTypeComponentBased] retain];
 		
 		[self textDidChange:nil];
 	}
@@ -636,7 +645,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 {
 	if(color != _errorColor) {
 		[_errorColor release];
-		_errorColor = [[color colorUsingColorSpaceName:NSDeviceRGBColorSpace] retain];
+		_errorColor = [[color colorUsingType:NSColorTypeComponentBased] retain];
 		
 		[self textDidChange:nil];
 	}
@@ -764,14 +773,6 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 - (void) shiftRight:(id)sender
 {
 	[self _shiftRight:[NSValue valueWithRange:[self selectedRange]]];
-}
-
-- (BOOL) validateUserInterfaceItem:(id<NSValidatedUserInterfaceItem>)anItem
-{
-	if(([anItem action] == @selector(shiftLeft:)) || ([anItem action] == @selector(shiftRight:)))
-	return ([[self window] firstResponder] == self);
-	
-	return [super validateUserInterfaceItem:anItem];
 }
 
 @end

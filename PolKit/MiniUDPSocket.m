@@ -42,13 +42,6 @@
 	return self;
 }
 
-- (void) finalize
-{
-	[self invalidate];
-	
-	[super finalize];
-}
-
 - (void) dealloc
 {
 	[self invalidate];
@@ -99,7 +92,7 @@
 
 - (NSString*) description
 {
-	return [NSString stringWithFormat:@"<%@ = 0x%08X | valid = %i>", [self class], (long)self, [self isValid]];
+	return [NSString stringWithFormat:@"<%@ = 0x%08X | valid = %i>", [self class], (unsigned)self, [self isValid]];
 }
 
 @end

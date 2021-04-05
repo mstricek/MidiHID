@@ -162,6 +162,9 @@
 #else
 
 #define LUA_API		extern
+#if defined(LUA_USE_MACOSX)
+#undef LUA_DL_DYLD // not needed for static implementation
+#endif
 
 #endif
 
