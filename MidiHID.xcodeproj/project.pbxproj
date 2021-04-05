@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF7EB5EB261B4AF3002F5B12 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF7EB5EA261B4AF3002F5B12 /* Images.xcassets */; };
 		E20A2D500F8C605E0004D8B8 /* Warning.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E20A2D4F0F8C605E0004D8B8 /* Warning.tiff */; };
 		E24D3E760F86CC940048853A /* Success.tiff in Resources */ = {isa = PBXBuildFile; fileRef = E24D3E750F86CC940048853A /* Success.tiff */; };
 		E25706060E4FA8B9007592EC /* lapi.c in Sources */ = {isa = PBXBuildFile; fileRef = E25705CF0E4FA8B9007592EC /* lapi.c */; };
@@ -71,6 +72,9 @@
 		DF35998A2619BB300098F08D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		DF35998C2619BB300098F08D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.rtf; name = en; path = en.lproj/ReleaseNotes.rtf; sourceTree = "<group>"; };
 		DF35998D2619BB360098F08D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		DF7EB5EA261B4AF3002F5B12 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = MidiHID/Images.xcassets; sourceTree = SOURCE_ROOT; };
+		DF7EB5F0261B4B6A002F5B12 /* MidiHIDDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MidiHIDDebug.entitlements; path = MidiHID/MidiHIDDebug.entitlements; sourceTree = "<group>"; };
+		DF7EB5F3261B4CEE002F5B12 /* MidiHID.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = MidiHID.entitlements; path = MidiHID/MidiHID.entitlements; sourceTree = "<group>"; };
 		E20A2D4F0F8C605E0004D8B8 /* Warning.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Warning.tiff; sourceTree = "<group>"; };
 		E24D3E750F86CC940048853A /* Success.tiff */ = {isa = PBXFileReference; lastKnownFileType = image.tiff; path = Success.tiff; sourceTree = "<group>"; };
 		E25705CF0E4FA8B9007592EC /* lapi.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = lapi.c; sourceTree = "<group>"; };
@@ -178,6 +182,7 @@
 		080E96DDFE201D6D7F000001 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				DF7EB5EA261B4AF3002F5B12 /* Images.xcassets */,
 				E2CF88CC10A05EF400AAC44E /* Info.plist */,
 				E270D8AC0F7CE81A00396646 /* Icon.icns */,
 				E2E8EE0F0F82AF5000741A6B /* Dot-Gray.tiff */,
@@ -206,6 +211,8 @@
 		29B97314FDCFA39411CA2CEA /* MidiHID */ = {
 			isa = PBXGroup;
 			children = (
+				DF7EB5F3261B4CEE002F5B12 /* MidiHID.entitlements */,
+				DF7EB5F0261B4B6A002F5B12 /* MidiHIDDebug.entitlements */,
 				E2CF884C10A05D4E00AAC44E /* Prefix.pch */,
 				E2B8B4BA0E671AAE00E1C9D1 /* Configurations */,
 				29B97315FDCFA39411CA2CEA /* Source */,
@@ -391,6 +398,7 @@
 				E2B8B52E0E671FBF00E1C9D1 /* MainMenu.xib in Resources */,
 				E2B8B52F0E671FBF00E1C9D1 /* Localizable.strings in Resources */,
 				E2BFF8450E8DBC0200086361 /* UsageTables.plist in Resources */,
+				DF7EB5EB261B4AF3002F5B12 /* Images.xcassets in Resources */,
 				E28AE9FA0E91B7C000379541 /* SourceTextViewKeywords-Lua.plist in Resources */,
 				E28AEAF60E91CA9D00379541 /* Error.tiff in Resources */,
 				E270D8AD0F7CE81A00396646 /* Icon.icns in Resources */,
@@ -492,9 +500,13 @@
 		C01FCF4B08A954540054247B /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = MidiHID/MidiHIDDebug.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CURRENT_PROJECT_VERSION = 1.0b6;
+				DEVELOPMENT_TEAM = 4434M3BY83;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
@@ -506,9 +518,13 @@
 		C01FCF4C08A954540054247B /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_OBJC_WEAK = YES;
-				CODE_SIGN_IDENTITY = "-";
+				CODE_SIGN_ENTITLEMENTS = MidiHID/MidiHID.entitlements;
+				CODE_SIGN_IDENTITY = "Developer ID Application";
 				CURRENT_PROJECT_VERSION = 1.0b6;
+				DEVELOPMENT_TEAM = 4434M3BY83;
+				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;

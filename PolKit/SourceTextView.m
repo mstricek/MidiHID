@@ -106,7 +106,7 @@ static void _SourceColorizeCallback(NSString* source, SourceToken token, NSRange
 
 @implementation SourceRulerView
 
-- (float) requiredThickness
+- (CGFloat) requiredThickness
 {
 	return 30;
 }
