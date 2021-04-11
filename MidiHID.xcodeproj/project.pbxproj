@@ -372,11 +372,8 @@
 			developmentRegion = en;
 			hasScannedForEncodings = 1;
 			knownRegions = (
-				ja,
 				en,
-				de,
 				Base,
-				fr,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* MidiHID */;
 			projectDirPath = "";
@@ -504,12 +501,13 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = MidiHID/MidiHIDDebug.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 1.0b6;
+				CURRENT_PROJECT_VERSION = 1.0b7;
 				DEVELOPMENT_TEAM = 4434M3BY83;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
+				MARKETING_VERSION = 1.0b7;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pol-online.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MidiHID;
 			};
@@ -522,12 +520,13 @@
 				CLANG_ENABLE_OBJC_WEAK = YES;
 				CODE_SIGN_ENTITLEMENTS = MidiHID/MidiHID.entitlements;
 				CODE_SIGN_IDENTITY = "-";
-				CURRENT_PROJECT_VERSION = 1.0b6;
+				CURRENT_PROJECT_VERSION = 1.0b7;
 				DEVELOPMENT_TEAM = 4434M3BY83;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = Prefix.pch;
 				INFOPLIST_FILE = Resources/Info.plist;
+				MARKETING_VERSION = 1.0b7;
 				PRODUCT_BUNDLE_IDENTIFIER = "net.pol-online.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = MidiHID;
 			};
