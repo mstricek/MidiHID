@@ -457,7 +457,9 @@ static void _QueueCallbackFunction(void* target, IOReturn result, void* refcon, 
 	NSArray*				table;
 	NSString*				string;
 	kern_return_t			error;
-	
+    NSMutableDictionary * instances;
+    NSInteger             instct;
+
 	if(!_enabled)
 	return;
 	
@@ -490,7 +492,7 @@ static void _QueueCallbackFunction(void* target, IOReturn result, void* refcon, 
 										[_info setObject:([string length] ? string : [(NSDictionary*)dictionary objectForKey:@kIOHIDPrimaryUsageKey]) forKey:@kIOHIDPrimaryUsageKey];
 										[_info setValue:[(NSDictionary*)dictionary objectForKey:@kIOHIDProductKey] forKey:@kIOHIDProductKey];
 										[_info setValue:[(NSDictionary*)dictionary objectForKey:@kIOHIDManufacturerKey] forKey:@kIOHIDManufacturerKey];
-										
+                                        instances = [NSMutableDictionary new];
 										_cookies = CFDictionaryCreateMutable(kCFAllocatorDefault, CFArrayGetCount(elements), NULL, &kCFTypeDictionaryValueCallBacks);
 										for(i = 0; i < CFArrayGetCount(elements); ++i) {
 											element = CFArrayGetValueAtIndex(elements, i);
@@ -512,7 +514,26 @@ static void _QueueCallbackFunction(void* target, IOReturn result, void* refcon, 
 												table = [_usageTables objectForKey:[NSString stringWithFormat:@"%i", value]];
 												value = [[(NSDictionary*)element objectForKey:@kIOHIDElementUsageKey] unsignedShortValue];
 												string = (value < [table count] ? [table objectAtIndex:value] : nil);
-												[info->info setObject:([string length] ? string : [(NSDictionary*)element objectForKey:@kIOHIDElementUsageKey]) forKey:@kIOHIDElementUsageKey];
+                                                if (string != nil)
+                                                {
+                                                    if ([string length] >0)
+                                                    {
+                                                        instct = 0;
+                                                        if (instances[string] != nil)
+                                                        {
+                                                            instct = [[instances objectForKey:string] unsignedIntegerValue];
+                                                            instct++;
+                                                        }
+                                                        NSNumber * qq;
+                                                        qq = [NSNumber numberWithInteger:instct];
+                                                        [instances setObject:qq forKey:string];
+                                                        if (instct >0)
+                                                        {
+                                                            string = [string stringByAppendingString:[NSString stringWithFormat:@"_%i", (int)instct]];
+                                                        }
+                                                    }
+                                                }
+                                                [info->info setObject:([string length] ? string : [(NSDictionary*)element objectForKey:@kIOHIDElementUsageKey]) forKey:@kIOHIDElementUsageKey];
 												info->value = 0;
 												info->min = [[(NSDictionary*)element objectForKey:@kIOHIDElementMinKey] intValue];
 												info->max = [[(NSDictionary*)element objectForKey:@kIOHIDElementMaxKey] intValue];
