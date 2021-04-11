@@ -524,9 +524,7 @@ static void _QueueCallbackFunction(void* target, IOReturn result, void* refcon, 
                                                             instct = [[instances objectForKey:string] unsignedIntegerValue];
                                                             instct++;
                                                         }
-                                                        NSNumber * qq;
-                                                        qq = [NSNumber numberWithInteger:instct];
-                                                        [instances setObject:qq forKey:string];
+                                                        [instances setObject:[NSNumber numberWithInteger:instct] forKey:string];
                                                         if (instct >0)
                                                         {
                                                             string = [string stringByAppendingString:[NSString stringWithFormat:@"_%i", (int)instct]];
